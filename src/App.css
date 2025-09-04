@@ -1,0 +1,26 @@
+/* Additional custom styles if needed */
+.hero-gradient {
+  background: radial-gradient(ellipse at center, rgba(153, 50, 204, 0.15) 0%, transparent 70%);
+}
+
+.service-card {
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.floating-animation {
+  animation: float 6s ease-in-out infinite;
+}
+
+.pulse-animation {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (max-width: 768px) {
+  .hero-gradient {
+    background: radial-gradient(ellipse at center, rgba(153, 50, 204, 0.1) 0%, transparent 50%);
+  }
+}
