@@ -1,36 +1,44 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin as LinkedIn, Instagram } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Linkedin as LinkedIn,
+  Instagram,
+} from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
-    'Quick Links': [
-      { name: 'Home', path: '/' },
-      { name: 'About', path: '/about' },
-      { name: 'Services', path: '/services' },
-      { name: 'Portfolio', path: '/portfolio' },
+    "Quick Links": [
+      { name: "Home", path: "/" },
+      { name: "About", path: "/about" },
+      { name: "Services", path: "/services" },
+      { name: "Portfolio", path: "/portfolio" },
     ],
-    'Services': [
-      { name: 'Digital Marketing', path: '/services' },
-      { name: 'Web Development', path: '/services' },
-      { name: 'Lead Generation', path: '/services' },
-      { name: 'Business Development', path: '/services' },
+    Services: [
+      { name: "Digital Marketing", path: "/services" },
+      { name: "Web Development", path: "/services" },
+      { name: "Lead Generation", path: "/services" },
+      { name: "Business Development", path: "/services" },
     ],
-    'Resources': [
-      { name: 'Blogs', path: '/blogs' },
-      { name: 'Contact Us', path: '/contact' },
-      { name: 'Book a Slot', path: '/book-slot' },
-      { name: 'Privacy Policy', path: '#' },
+    Resources: [
+      { name: "Blogs", path: "/blogs" },
+      { name: "Contact Us", path: "/contact" },
+      { name: "Book a Slot", path: "/book-slot" },
+      { name: "Privacy Policy", path: "#" },
     ],
   };
 
   const socialLinks = [
-    { icon: Facebook, href: '#', name: 'Facebook' },
-    { icon: Twitter, href: '#', name: 'Twitter' },
-    { icon: LinkedIn, href: '#', name: 'LinkedIn' },
-    { icon: Instagram, href: '#', name: 'Instagram' },
+    { icon: Facebook, href: "#", name: "Facebook" },
+    { icon: Twitter, href: "#", name: "Twitter" },
+    { icon: LinkedIn, href: "#", name: "LinkedIn" },
+    { icon: Instagram, href: "#", name: "Instagram" },
   ];
 
   return (
@@ -47,21 +55,22 @@ const Footer = () => {
               <span className="text-2xl font-bold gradient-text">Growzaic</span>
             </Link>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Empowering businesses with cutting-edge digital marketing strategies and innovative web solutions. 
-              Founded by Arbab Ahmad Khan to drive growth and success.
+              Empowering businesses with cutting-edge digital marketing
+              strategies and innovative web solutions. Founded by Arbab Ahmad
+              Khan to drive growth and success.
             </p>
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-gray-400">
                 <Mail size={16} />
-                <span>hello@growzaic.com</span>
+                <a href="mailto:info@growzaic.com">info@growzaic.com</a>
               </div>
               <div className="flex items-center space-x-3 text-gray-400">
                 <Phone size={16} />
-                <span>+1 (555) 123-4567</span>
+                <span>+92-321-8108509</span>
               </div>
               <div className="flex items-center space-x-3 text-gray-400">
                 <MapPin size={16} />
-                <span>123 Business Ave, Suite 100</span>
+                <span>Punjab, Pakistan</span>
               </div>
             </div>
           </div>
@@ -92,7 +101,7 @@ const Footer = () => {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Growzaic. All rights reserved. Founded by Arbab Ahmad Khan.
+              © {currentYear} Growzaic. All rights reserved.
             </p>
             <div className="flex items-center space-x-4">
               {socialLinks.map((social) => {
