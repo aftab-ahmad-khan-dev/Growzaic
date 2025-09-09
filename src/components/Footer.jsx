@@ -6,12 +6,13 @@ import {
   MapPin,
   Facebook,
   Twitter,
-  Linkedin as LinkedIn,
+  LinkedinIcon,
   Instagram,
 } from "lucide-react";
+import logo from "../assets/logo.png";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear(); // 2025
 
   const footerLinks = {
     "Quick Links": [
@@ -21,24 +22,32 @@ const Footer = () => {
       { name: "Portfolio", path: "/portfolio" },
     ],
     Services: [
-      { name: "Digital Marketing", path: "/services" },
-      { name: "Web Development", path: "/services" },
-      { name: "Lead Generation", path: "/services" },
-      { name: "Business Development", path: "/services" },
+      { name: "Social Media Marketing", path: "/services#social-media" },
+      { name: "Meta & Instagram Ads", path: "/services#meta-ads" },
+      { name: "TikTok Campaigns", path: "/services#tiktok" },
+      { name: "Web Development", path: "/services#web-dev" },
     ],
     Resources: [
       { name: "Blogs", path: "/blogs" },
       { name: "Contact Us", path: "/contact" },
-      { name: "Book a Slot", path: "/book-slot" },
+      { name: "Book a Free Consultation", path: "/book-slot" },
       { name: "Privacy Policy", path: "#" },
     ],
   };
 
   const socialLinks = [
-    { icon: Facebook, href: "#", name: "Facebook" },
-    { icon: Twitter, href: "#", name: "Twitter" },
-    { icon: LinkedIn, href: "#", name: "LinkedIn" },
-    { icon: Instagram, href: "#", name: "Instagram" },
+    { icon: Facebook, href: "https://facebook.com/growzaic", name: "Facebook" },
+    { icon: Twitter, href: "https://twitter.com/growzaic", name: "Twitter" },
+    {
+      icon: LinkedinIcon,
+      href: "https://LinkedinIcon.com/company/growzaic",
+      name: "LinkedinIcon",
+    },
+    {
+      icon: Instagram,
+      href: "https://instagram.com/growzaic",
+      name: "Instagram",
+    },
   ];
 
   return (
@@ -49,15 +58,11 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-accent-500 to-accent-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">G</span>
-              </div>
-              <span className="text-2xl font-bold gradient-text">Growzaic</span>
+              <img src={logo} alt="Growzaic Logo" className="h-[6rem]" />
             </Link>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Empowering businesses with cutting-edge digital marketing
-              strategies and innovative web solutions. Founded by Arbab Ahmad
-              Khan to drive growth and success.
+              Empowering businesses with cutting-edge social media marketing
+              strategies, Meta Ads, and innovative web solutions.
             </p>
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-gray-400">
@@ -73,6 +78,12 @@ const Footer = () => {
                 <span>Punjab, Pakistan</span>
               </div>
             </div>
+            <p className="text-sm text-gray-500 mt-4">
+              Book a free 30-min consultation today!{" "}
+              <Link to="/book-slot" className="text-accent-400 hover:underline">
+                Get Started
+              </Link>
+            </p>
           </div>
 
           {/* Footer Links */}
@@ -110,6 +121,8 @@ const Footer = () => {
                   <a
                     key={social.name}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-gray-400 hover:text-accent-400 transition-colors duration-200"
                     aria-label={social.name}
                   >

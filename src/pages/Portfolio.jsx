@@ -1,191 +1,250 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { 
-  X, 
-  ExternalLink, 
-  Calendar, 
-  Tag, 
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import {
+  X,
+  ExternalLink,
+  Calendar,
+  Tag,
   Star,
   ArrowRight,
-  Filter
-} from 'lucide-react';
-import SEO from '../components/SEO';
+  Filter,
+} from "lucide-react";
+import SEO from "../components/SEO";
 
 const Portfolio = () => {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [portfolioRef, portfolioInView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [portfolioRef, portfolioInView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   const categories = [
-    { id: 'all', name: 'All Projects' },
-    { id: 'digital-marketing', name: 'Digital Marketing' },
-    { id: 'web-development', name: 'Web Development' },
-    { id: 'lead-generation', name: 'Lead Generation' },
-    { id: 'branding', name: 'Branding' }
+    { id: "all", name: "All Projects" },
+    { id: "social-media-marketing", name: "Social Media Marketing" },
+    { id: "web-development", name: "Web Development" },
+    { id: "lead-generation", name: "Lead Generation" },
+    { id: "branding", name: "Branding" },
   ];
 
   const projects = [
     {
       id: 1,
-      title: 'TechStart Inc. Digital Transformation',
-      category: 'digital-marketing',
-      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      description: 'Complete digital marketing overhaul resulting in 300% increase in qualified leads.',
-      fullDescription: 'TechStart Inc. approached us with declining online visibility and poor lead quality. We implemented a comprehensive digital marketing strategy including Meta Ads optimization, LinkedIn lead generation campaigns, and SEO improvements. The results exceeded expectations with a 300% increase in qualified leads and 150% improvement in conversion rates.',
-      client: 'TechStart Inc.',
-      date: '2024',
-      services: ['Meta Ads', 'LinkedIn Marketing', 'SEO', 'Analytics'],
+      title: "TechStart Inc. Social Media Campaign",
+      category: "social-media-marketing",
+      image:
+        "https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      description:
+        "Explosive Meta and Instagram campaigns driving 350% follower growth.",
+      fullDescription:
+        "TechStart Inc. needed to boost their social media presence to attract more customers. We crafted a targeted Meta Ads and Instagram campaign, leveraging influencer partnerships and engaging content. The results included a 350% increase in followers and a 200% boost in engagement rates.",
+      client: "TechStart Inc.",
+      date: "2024",
+      services: [
+        "Meta Ads",
+        "Instagram Campaigns",
+        "Influencer Marketing",
+        "Analytics",
+      ],
       results: [
-        '300% increase in qualified leads',
-        '150% improvement in conversion rates',
-        '75% reduction in cost per acquisition',
-        '400% increase in organic traffic'
+        "350% increase in followers",
+        "200% boost in engagement rates",
+        "80% reduction in cost per click",
+        "500% increase in brand mentions",
       ],
       testimonial: {
-        content: 'Growzaic transformed our entire digital presence. The results speak for themselves - we\'ve never seen such consistent, high-quality leads.',
-        author: 'Sarah Johnson',
-        role: 'CEO, TechStart Inc.'
+        content:
+          "Growzaic’s social media campaigns transformed our brand visibility. Our follower growth and engagement are off the charts!",
+        author: "Sarah Johnson",
+        role: "CEO, TechStart Inc.",
       },
-      link: '#'
+      link: "/contact",
     },
     {
       id: 2,
-      title: 'E-commerce Plus Platform Development',
-      category: 'web-development',
-      image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      description: 'Modern e-commerce platform with advanced features and mobile optimization.',
-      fullDescription: 'E-commerce Plus needed a complete platform redesign to handle their growing business. We built a custom e-commerce solution with advanced inventory management, multi-payment gateway integration, and mobile-first design. The new platform improved user experience and significantly boosted sales.',
-      client: 'E-commerce Plus',  
-      date: '2024',
-      services: ['Custom Development', 'UI/UX Design', 'Mobile Optimization', 'Payment Integration'],
+      title: "E-commerce Plus Social-First Website",
+      category: "web-development",
+      image:
+        "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      description:
+        "E-commerce platform with seamless social media integration for conversions.",
+      fullDescription:
+        "E-commerce Plus required a website optimized for social media-driven traffic. We built a custom e-commerce platform with Instagram Shop integration, Meta pixel tracking, and mobile-first design, resulting in a 250% sales increase and improved user engagement.",
+      client: "E-commerce Plus",
+      date: "2024",
+      services: [
+        "Custom Development",
+        "Social Media Integration",
+        "Mobile Optimization",
+        "Analytics",
+      ],
       results: [
-        '250% increase in online sales',
-        '40% improvement in page load speed',
-        '60% increase in mobile conversions',
-        '90% reduction in cart abandonment'
+        "250% increase in online sales",
+        "50% improvement in page load speed",
+        "70% increase in social media referrals",
+        "85% reduction in cart abandonment",
       ],
       testimonial: {
-        content: 'The new platform exceeded our expectations. Sales have more than doubled, and our customers love the seamless shopping experience.',
-        author: 'Michael Chen',
-        role: 'Founder, E-commerce Plus'
+        content:
+          "The social media-integrated website has been a game-changer. Our sales and engagement have soared!",
+        author: "Michael Chen",
+        role: "Founder, E-commerce Plus",
       },
-      link: '#'
+      link: "/contact",
     },
     {
       id: 3,
-      title: 'HealthCorp B2B Lead Generation',
-      category: 'lead-generation',
-      image: 'https://images.pexels.com/photos/3683107/pexels-photo-3683107.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      description: 'Targeted LinkedIn campaigns generating high-quality B2B leads for healthcare industry.',
-      fullDescription: 'HealthCorp struggled with generating quality B2B leads in the competitive healthcare market. We developed a multi-channel lead generation strategy focusing on LinkedIn advertising, content marketing, and email nurturing campaigns. The comprehensive approach resulted in consistent, high-quality leads and improved sales pipeline.',
-      client: 'HealthCorp',
-      date: '2024',
-      services: ['LinkedIn Ads', 'Content Marketing', 'Email Marketing', 'Lead Nurturing'],
+      title: "HealthCorp LinkedIn Lead Generation",
+      category: "lead-generation",
+      image:
+        "https://images.pexels.com/photos/3683107/pexels-photo-3683107.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      description:
+        "LinkedIn campaigns generating high-quality B2B leads for healthcare.",
+      fullDescription:
+        "HealthCorp needed high-quality B2B leads in the healthcare sector. We designed targeted LinkedIn campaigns with personalized content and lead nurturing, resulting in a 200% increase in qualified leads and a stronger sales pipeline.",
+      client: "HealthCorp",
+      date: "2024",
+      services: [
+        "LinkedIn Ads",
+        "Content Marketing",
+        "Lead Nurturing",
+        "Analytics",
+      ],
       results: [
-        '180% increase in qualified B2B leads',
-        '45% improvement in lead-to-customer ratio',
-        '60% reduction in sales cycle length',
-        '200% increase in pipeline value'
+        "200% increase in qualified B2B leads",
+        "50% improvement in lead-to-customer ratio",
+        "65% reduction in sales cycle length",
+        "180% increase in pipeline value",
       ],
       testimonial: {
-        content: 'The quality of leads we\'re getting now is exceptional. Our sales team is busier than ever with qualified prospects.',
-        author: 'Emily Rodriguez',
-        role: 'Marketing Director, HealthCorp'
+        content:
+          "Growzaic’s LinkedIn campaigns delivered exceptional B2B leads, making our sales process more efficient.",
+        author: "Emily Rodriguez",
+        role: "Marketing Director, HealthCorp",
       },
-      link: '#'
+      link: "/contact",
     },
     {
       id: 4,
-      title: 'FashionForward Brand Identity',
-      category: 'branding',
-      image: 'https://images.pexels.com/photos/6347919/pexels-photo-6347919.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      description: 'Complete brand redesign and digital presence for fashion startup.',
-      fullDescription: 'FashionForward, a new fashion startup, needed a complete brand identity and digital presence. We created a modern, cohesive brand identity including logo design, color palette, typography, and brand guidelines. The comprehensive branding package helped establish their market presence and attract their target audience.',
-      client: 'FashionForward',
-      date: '2024',
-      services: ['Brand Identity', 'Logo Design', 'Website Design', 'Social Media Assets'],
+      title: "FashionForward Social Media Branding",
+      category: "branding",
+      image:
+        "https://images.pexels.com/photos/6347919/pexels-photo-6347919.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      description:
+        "Social media-optimized brand identity for a fashion startup.",
+      fullDescription:
+        "FashionForward needed a vibrant brand identity for social media platforms. We created a cohesive logo, color palette, and Instagram-ready assets, driving a 400% increase in social media following and strong brand recognition.",
+      client: "FashionForward",
+      date: "2024",
+      services: [
+        "Brand Identity",
+        "Logo Design",
+        "Social Media Assets",
+        "Content Strategy",
+      ],
       results: [
-        '500% increase in brand recognition',
-        '300% growth in social media following',
-        '150% increase in website engagement',
-        '80% improvement in brand recall'
+        "400% increase in social media following",
+        "250% growth in Instagram engagement",
+        "120% increase in website traffic from social",
+        "90% improvement in brand recall",
       ],
       testimonial: {
-        content: 'Our new brand identity perfectly captures our vision. We\'ve seen incredible growth since the rebrand launch.',
-        author: 'Jessica Williams',
-        role: 'Creative Director, FashionForward'
+        content:
+          "Our social media branding is now iconic, thanks to Growzaic. Our audience loves the new look!",
+        author: "Jessica Williams",
+        role: "Creative Director, FashionForward",
       },
-      link: '#'
+      link: "/contact",
     },
     {
       id: 5,
-      title: 'FinanceFlow Lead Conversion Optimization',
-      category: 'digital-marketing',
-      image: 'https://images.pexels.com/photos/4386431/pexels-photo-4386431.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      description: 'Conversion rate optimization resulting in 200% improvement in lead quality.',
-      fullDescription: 'FinanceFlow had good traffic but poor conversion rates. We conducted comprehensive conversion rate optimization including landing page redesign, A/B testing, and user experience improvements. The optimization process resulted in significantly better lead quality and higher conversion rates.',
-      client: 'FinanceFlow',
-      date: '2023',
-      services: ['CRO', 'Landing Page Design', 'A/B Testing', 'Analytics'],
+      title: "FoodieDelight TikTok Campaign",
+      category: "social-media-marketing",
+      image:
+        "https://images.pexels.com/photos/3186654/pexels-photo-3186654.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      description:
+        "Viral TikTok campaign driving massive engagement for food brand.",
+      fullDescription:
+        "FoodieDelight aimed to reach younger audiences via TikTok. We crafted a viral content strategy with trending challenges and influencer collaborations, resulting in 1M+ video views and a 300% follower increase.",
+      client: "FoodieDelight",
+      date: "2023",
+      services: [
+        "TikTok Campaigns",
+        "Influencer Marketing",
+        "Content Creation",
+        "Analytics",
+      ],
       results: [
-        '200% improvement in conversion rate',
-        '150% increase in lead quality score',
-        '40% reduction in bounce rate',
-        '180% increase in form completions'
+        "1M+ TikTok video views",
+        "300% increase in followers",
+        "200% boost in brand engagement",
+        "150% increase in website referrals",
       ],
       testimonial: {
-        content: 'The conversion optimization work was phenomenal. We\'re converting visitors at rates we never thought possible.',
-        author: 'Robert Davis',
-        role: 'VP Marketing, FinanceFlow'
+        content:
+          "Growzaic’s TikTok strategy made us go viral. The engagement and follower growth were phenomenal!",
+        author: "Laura Thompson",
+        role: "Marketing Manager, FoodieDelight",
       },
-      link: '#'
+      link: "/contact",
     },
     {
       id: 6,
-      title: 'GreenEnergy Website Development',
-      category: 'web-development',
-      image: 'https://images.pexels.com/photos/9800029/pexels-photo-9800029.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop',
-      description: 'Sustainable energy company website with interactive features and lead capture.',
-      fullDescription: 'GreenEnergy needed a modern website that would effectively communicate their sustainable energy solutions while capturing leads. We developed a responsive website with interactive features, energy calculator tools, and optimized lead capture forms. The site effectively showcases their services while driving business growth.',
-      client: 'GreenEnergy Co.',
-      date: '2023',
-      services: ['Website Development', 'Interactive Tools', 'Lead Capture', 'SEO'],
+      title: "GreenEnergy Social-Optimized Website",
+      category: "web-development",
+      image:
+        "https://images.pexels.com/photos/9800029/pexels-photo-9800029.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
+      description:
+        "Website with social media tools to drive leads for energy company.",
+      fullDescription:
+        "GreenEnergy needed a website to amplify their social media-driven leads. We developed a responsive site with social media integration, lead capture forms, and interactive tools, resulting in a 350% increase in inquiries.",
+      client: "GreenEnergy Co.",
+      date: "2023",
+      services: [
+        "Website Development",
+        "Social Media Integration",
+        "Lead Capture",
+        "Analytics",
+      ],
       results: [
-        '300% increase in online inquiries',
-        '45% improvement in user engagement',
-        '60% increase in time on site',
-        '120% growth in organic traffic'
+        "350% increase in online inquiries",
+        "50% improvement in user engagement",
+        "80% increase in social media traffic",
+        "130% growth in organic reach",
       ],
       testimonial: {
-        content: 'Our new website perfectly represents our mission and has become our best sales tool. Inquiries have tripled.',
-        author: 'Amanda Green',
-        role: 'Marketing Manager, GreenEnergy Co.'
+        content:
+          "Our social-optimized website has become our top lead source. Growzaic delivered beyond expectations.",
+        author: "Amanda Green",
+        role: "Marketing Manager, GreenEnergy Co.",
       },
-      link: '#'
-    }
+      link: "/contact",
+    },
   ];
 
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((project) => project.category === activeFilter);
 
   const openModal = (project) => {
     setSelectedProject(project);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setSelectedProject(null);
-    document.body.style.overflow = 'unset';
+    document.body.style.overflow = "unset";
   };
 
   return (
     <>
-      <SEO 
-        title="Portfolio - Our Digital Marketing Success Stories | Growzaic"
-        description="Explore Growzaic's portfolio of successful digital marketing campaigns, web development projects, and lead generation strategies. See real results from our expert team."
-        keywords="digital marketing portfolio, case studies, success stories, web development projects, lead generation campaigns, Meta Ads results, LinkedIn marketing"
+      <SEO
+        title="Portfolio - Social Media Marketing Success Stories | Growzaic"
+        description="Discover Growzaic’s portfolio of social media marketing campaigns, including Meta Ads, Instagram growth, LinkedIn leads, and TikTok virality. See our proven results."
+        keywords="social media marketing portfolio, Meta Ads campaigns, Instagram growth, LinkedIn marketing, TikTok campaigns, web development, lead generation, branding"
         url="https://growzaic.com/portfolio"
       />
 
@@ -199,11 +258,11 @@ const Portfolio = () => {
             className="text-center max-w-4xl mx-auto mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Our <span className="gradient-text">Portfolio</span>
+              Our <span className="gradient-text">Social Media Portfolio</span>
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed">
-              Discover how we've helped businesses achieve exceptional growth through 
-              strategic digital marketing and innovative web solutions.
+              Explore how we’ve transformed brands with powerful social media
+              campaigns on Meta, Instagram, LinkedIn, and TikTok.
             </p>
           </motion.div>
         </div>
@@ -224,8 +283,8 @@ const Portfolio = () => {
                 onClick={() => setActiveFilter(category.id)}
                 className={`flex items-center space-x-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                   activeFilter === category.id
-                    ? 'bg-accent-600 text-white'
-                    : 'bg-neutral-800 text-gray-300 hover:bg-neutral-700'
+                    ? "bg-accent-600 text-white"
+                    : "bg-neutral-800 text-gray-300 hover:bg-neutral-700"
                 }`}
               >
                 <Filter size={16} />
@@ -239,7 +298,7 @@ const Portfolio = () => {
       {/* Projects Grid */}
       <section ref={portfolioRef} className="section-padding bg-neutral-950">
         <div className="container-custom">
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             layout
           >
@@ -249,15 +308,19 @@ const Portfolio = () => {
                   key={project.id}
                   layout
                   initial={{ opacity: 0, y: 30 }}
-                  animate={portfolioInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  animate={
+                    portfolioInView
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: 30 }
+                  }
                   exit={{ opacity: 0, y: 30 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="glass-effect-dark rounded-2xl overflow-hidden card-hover cursor-pointer"
                   onClick={() => openModal(project)}
                 >
                   <div className="aspect-video overflow-hidden">
-                    <img 
-                      src={project.image} 
+                    <img
+                      src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
@@ -266,18 +329,24 @@ const Portfolio = () => {
                     <div className="flex items-center space-x-2 mb-3">
                       <Tag className="text-accent-400" size={16} />
                       <span className="text-accent-400 text-sm font-medium capitalize">
-                        {project.category.replace('-', ' ')}
+                        {project.category.replace("-", " ")}
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold mb-3 line-clamp-2">{project.title}</h3>
-                    <p className="text-gray-400 mb-4 line-clamp-3">{project.description}</p>
+                    <h3 className="text-xl font-bold mb-3 line-clamp-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-400 mb-4 line-clamp-3">
+                      {project.description}
+                    </p>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2 text-gray-500 text-sm">
                         <Calendar size={14} />
                         <span>{project.date}</span>
                       </div>
                       <div className="flex items-center space-x-1 text-accent-400">
-                        <span className="text-sm font-medium">View Details</span>
+                        <span className="text-sm font-medium">
+                          View Details
+                        </span>
                         <ArrowRight size={16} />
                       </div>
                     </div>
@@ -308,8 +377,8 @@ const Portfolio = () => {
             >
               {/* Modal Header */}
               <div className="relative">
-                <img 
-                  src={selectedProject.image} 
+                <img
+                  src={selectedProject.image}
                   alt={selectedProject.title}
                   className="w-full h-64 object-cover"
                 />
@@ -326,11 +395,13 @@ const Portfolio = () => {
                 <div className="flex items-center space-x-2 mb-4">
                   <Tag className="text-accent-400" size={16} />
                   <span className="text-accent-400 text-sm font-medium capitalize">
-                    {selectedProject.category.replace('-', ' ')}
+                    {selectedProject.category.replace("-", " ")}
                   </span>
                 </div>
-                
-                <h2 className="text-3xl font-bold mb-4">{selectedProject.title}</h2>
+
+                <h2 className="text-3xl font-bold mb-4">
+                  {selectedProject.title}
+                </h2>
                 <p className="text-gray-300 text-lg leading-relaxed mb-8">
                   {selectedProject.fullDescription}
                 </p>
@@ -341,18 +412,26 @@ const Portfolio = () => {
                     <h3 className="text-xl font-bold mb-4">Project Details</h3>
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3">
-                        <span className="text-gray-400 font-medium">Client:</span>
-                        <span className="text-white">{selectedProject.client}</span>
+                        <span className="text-gray-400 font-medium">
+                          Client:
+                        </span>
+                        <span className="text-white">
+                          {selectedProject.client}
+                        </span>
                       </div>
                       <div className="flex items-center space-x-3">
                         <span className="text-gray-400 font-medium">Year:</span>
-                        <span className="text-white">{selectedProject.date}</span>
+                        <span className="text-white">
+                          {selectedProject.date}
+                        </span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <span className="text-gray-400 font-medium">Services:</span>
+                        <span className="text-gray-400 font-medium">
+                          Services:
+                        </span>
                         <div className="flex flex-wrap gap-2">
                           {selectedProject.services.map((service) => (
-                            <span 
+                            <span
                               key={service}
                               className="bg-accent-600/20 text-accent-400 px-3 py-1 rounded-full text-sm"
                             >
@@ -369,8 +448,14 @@ const Portfolio = () => {
                     <h3 className="text-xl font-bold mb-4">Key Results</h3>
                     <div className="space-y-3">
                       {selectedProject.results.map((result, index) => (
-                        <div key={index} className="flex items-center space-x-3">
-                          <Star className="text-accent-400 flex-shrink-0" size={16} />
+                        <div
+                          key={index}
+                          className="flex items-center space-x-3"
+                        >
+                          <Star
+                            className="text-accent-400 flex-shrink-0"
+                            size={16}
+                          />
                           <span className="text-gray-300">{result}</span>
                         </div>
                       ))}
@@ -389,7 +474,9 @@ const Portfolio = () => {
                       <cite className="text-white font-semibold not-italic">
                         {selectedProject.testimonial.author}
                       </cite>
-                      <p className="text-gray-400 text-sm">{selectedProject.testimonial.role}</p>
+                      <p className="text-gray-400 text-sm">
+                        {selectedProject.testimonial.role}
+                      </p>
                     </div>
                   </footer>
                 </div>
@@ -397,17 +484,16 @@ const Portfolio = () => {
                 {/* CTA */}
                 <div className="text-center">
                   <p className="text-gray-300 mb-6">
-                    Interested in similar results for your business?
+                    Ready to launch your own social media success story?
                   </p>
-                  <button
-                    onClick={closeModal}
+                  <Link
+                    to="/contact"
                     className="btn-primary inline-flex items-center"
+                    onClick={closeModal}
                   >
-                    <a href="/contact" className="flex items-center">
-                      Start Your Project
-                      <ExternalLink className="ml-2" size={16} />
-                    </a>
-                  </button>
+                    Start Your Project
+                    <ExternalLink className="ml-2" size={16} />
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -426,26 +512,26 @@ const Portfolio = () => {
             className="text-center max-w-4xl mx-auto"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              Ready to Join Our Success Stories?
+              Ready for Your Social Media Success?
             </h2>
             <p className="text-xl text-accent-100 mb-8 leading-relaxed">
-              Let's create the next success story together. Book a consultation to discuss 
-              how we can help achieve similar results for your business.
+              Let’s create your next viral campaign or engagement-driven
+              strategy. Book a free consultation to start your journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="/book-slot" 
+              <Link
+                to="/book-slot"
                 className="bg-white text-accent-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center"
               >
-                Book Free Consultation
+                Book Free Strategy Call
                 <ArrowRight className="ml-2" size={20} />
-              </a>
-              <a 
-                href="/contact" 
+              </Link>
+              <Link
+                to="/contact"
                 className="border-2 border-white text-white hover:bg-white hover:text-accent-600 font-semibold py-4 px-8 rounded-lg transition-all duration-300"
               >
                 Get In Touch
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>

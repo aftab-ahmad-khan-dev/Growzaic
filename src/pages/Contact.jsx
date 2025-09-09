@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import emailjs from "@emailjs/browser";
@@ -14,23 +14,39 @@ import {
   Twitter,
   Linkedin,
   Instagram,
+  XCircle,
 } from "lucide-react";
 import SEO from "../components/SEO";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
+    full_name: "",
+    email_address: "",
+    phone_number: "",
+    company_name: "",
+    service_interest: "",
+    budget_range: "",
+    preferred_date: "",
+    preferred_time: "",
+    business_goals: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [contactRef, contactInView] = useInView({
     threshold: 0.1,
     triggerOnce: true,
   });
+
+  useEffect(() => {
+    const publicKey = "q1LjEqe1BYoap1aVY";
+    try {
+      emailjs.init(publicKey);
+      console.log("EmailJS initialized with public key:", publicKey);
+    } catch (error) {
+      console.error("EmailJS initialization failed:", error);
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -45,29 +61,47 @@ const Contact = () => {
     setSubmitStatus(null);
 
     try {
-      // EmailJS configuration
-      const serviceId = "your_service_id"; // Replace with your EmailJS service ID
-      const templateId = "your_template_id"; // Replace with your EmailJS template ID
-      const publicKey = "your_public_key"; // Replace with your EmailJS public key
+      const serviceId = "service_kbvfd32";
+      const templateId = "growzaic";
 
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        subject: formData.subject,
-        message: formData.message,
-        to_name: "Growzaic Team",
+        full_name: formData.full_name || "N/A",
+        email_address: formData.email_address || "N/A",
+        phone_number: formData.phone_number || "N/A",
+        company_name: formData.company_name || "N/A",
+        service_interest: formData.service_interest || "General Inquiry",
+        budget_range: formData.budget_range || "N/A",
+        preferred_date: formData.preferred_date || "N/A",
+        preferred_time: formData.preferred_time || "N/A",
+        business_goals: formData.business_goals || "No specific goals provided",
       };
 
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      console.log(
+        "Sending email with params:",
+        templateParams,
+        "serviceId:",
+        serviceId,
+        "templateId:",
+        templateId
+      );
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams
+      );
+      console.log("Email sent successfully:", response);
 
-      setSubmitStatus("success");
+      setShowModal(true);
       setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
+        full_name: "",
+        email_address: "",
+        phone_number: "",
+        company_name: "",
+        service_interest: "",
+        budget_range: "",
+        preferred_date: "",
+        preferred_time: "",
+        business_goals: "",
       });
     } catch (error) {
       console.error("Error sending email:", error);
@@ -77,12 +111,17 @@ const Contact = () => {
     }
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+    setSubmitStatus(null);
+  };
+
   const contactInfo = [
     {
       icon: Mail,
       title: "Email Us",
       details: "info@growzaic.com",
-      description: "Send us an email anytime!",
+      description: "Reach out for social media marketing insights!",
     },
     {
       icon: Phone,
@@ -94,7 +133,7 @@ const Contact = () => {
       icon: MapPin,
       title: "Visit Us",
       details: "Punjab, Pakistan",
-      description: "Punjab, Pakistan",
+      description: "Schedule a visit to discuss your campaigns",
     },
     {
       icon: Clock,
@@ -105,18 +144,26 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", name: "Facebook" },
-    { icon: Twitter, href: "#", name: "Twitter" },
-    { icon: Linkedin, href: "#", name: "LinkedIn" },
-    { icon: Instagram, href: "#", name: "Instagram" },
+    { icon: Facebook, href: "https://facebook.com/growzaic", name: "Facebook" },
+    { icon: Twitter, href: "https://twitter.com/growzaic", name: "Twitter" },
+    {
+      icon: Linkedin,
+      href: "https://linkedin.com/company/growzaic",
+      name: "LinkedIn",
+    },
+    {
+      icon: Instagram,
+      href: "https://instagram.com/growzaic",
+      name: "Instagram",
+    },
   ];
 
   return (
     <>
       <SEO
-        title="Contact Growzaic - Get Your Free Digital Marketing Consultation"
-        description="Ready to transform your business? Contact Growzaic today for expert digital marketing services, web development, and growth strategies. Free consultation available."
-        keywords="contact Growzaic, digital marketing consultation, free consultation, contact form, business inquiry, Arbab Ahmad Khan"
+        title="Contact Growzaic - Free Social Media Marketing Consultation"
+        description="Ready to amplify your social media presence? Contact Growzaic for expert Meta Ads, Instagram campaigns, and TikTok strategies. Book a free consultation today."
+        keywords="contact Growzaic, social media marketing consultation, Meta Ads, Instagram campaigns, TikTok strategies, LinkedIn marketing, free consultation"
         url="https://growzaic.com/contact"
       />
 
@@ -133,9 +180,9 @@ const Contact = () => {
               Get In <span className="gradient-text">Touch</span>
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed">
-              Ready to transform your business? Let's discuss how we can help
-              you achieve exceptional growth through strategic digital marketing
-              solutions.
+              Ready to dominate Meta, Instagram, or TikTok? Let's discuss how
+              our social media marketing strategies can skyrocket your brand’s
+              engagement and growth.
             </p>
           </motion.div>
         </div>
@@ -184,27 +231,28 @@ const Contact = () => {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Send Us a <span className="gradient-text">Message</span>
+                Book a <span className="gradient-text">Strategy Call</span>
               </h2>
               <p className="text-gray-300 mb-8 leading-relaxed">
-                Fill out the form below and we'll get back to you within 24
-                hours. Let's discuss how we can help grow your business.
+                Fill out the form to schedule a free social media marketing
+                consultation. We’ll respond within 24 hours to plan your Meta,
+                Instagram, or TikTok strategy.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label
-                      htmlFor="name"
+                      htmlFor="full_name"
                       className="block text-sm font-medium text-gray-300 mb-2"
                     >
                       Full Name *
                     </label>
                     <input
                       type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
+                      id="full_name"
+                      name="full_name"
+                      value={formData.full_name}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-400 transition-colors"
@@ -213,16 +261,16 @@ const Contact = () => {
                   </div>
                   <div>
                     <label
-                      htmlFor="email"
+                      htmlFor="email_address"
                       className="block text-sm font-medium text-gray-300 mb-2"
                     >
                       Email Address *
                     </label>
                     <input
                       type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
+                      id="email_address"
+                      name="email_address"
+                      value={formData.email_address}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-400 transition-colors"
@@ -234,16 +282,16 @@ const Contact = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label
-                      htmlFor="phone"
+                      htmlFor="phone_number"
                       className="block text-sm font-medium text-gray-300 mb-2"
                     >
                       Phone Number
                     </label>
                     <input
                       type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
+                      id="phone_number"
+                      name="phone_number"
+                      value={formData.phone_number}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-400 transition-colors"
                       placeholder="+1 (555) 123-4567"
@@ -251,77 +299,133 @@ const Contact = () => {
                   </div>
                   <div>
                     <label
-                      htmlFor="subject"
+                      htmlFor="company_name"
                       className="block text-sm font-medium text-gray-300 mb-2"
                     >
-                      Subject *
+                      Company Name
+                    </label>
+                    <input
+                      type="text"
+                      id="company_name"
+                      name="company_name"
+                      value={formData.company_name}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-400 transition-colors"
+                      placeholder="Your company name"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="service_interest"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
+                      Service Interest *
                     </label>
                     <select
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
+                      id="service_interest"
+                      name="service_interest"
+                      value={formData.service_interest}
                       onChange={handleInputChange}
                       required
                       className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white focus:outline-none focus:border-accent-400 transition-colors"
                     >
-                      <option value="">Select a subject</option>
-                      <option value="Digital Marketing">
-                        Digital Marketing
+                      <option value="">Select a service</option>
+                      <option value="Meta & Instagram Ads">
+                        Meta & Instagram Ads
                       </option>
-                      <option value="Web Development">Web Development</option>
-                      <option value="Lead Generation">Lead Generation</option>
-                      <option value="Business Development">
-                        Business Development
+                      <option value="TikTok Campaigns">TikTok Campaigns</option>
+                      <option value="LinkedIn Marketing">
+                        LinkedIn Marketing
                       </option>
+                      <option value="Social Media SEO">Social Media SEO</option>
                       <option value="General Inquiry">General Inquiry</option>
                     </select>
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="budget_range"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
+                      Budget Range
+                    </label>
+                    <input
+                      type="text"
+                      id="budget_range"
+                      name="budget_range"
+                      value={formData.budget_range}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-400 transition-colors"
+                      placeholder="$500 - $5000"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="preferred_date"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
+                      Preferred Date
+                    </label>
+                    <input
+                      type="date"
+                      id="preferred_date"
+                      name="preferred_date"
+                      value={formData.preferred_date}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white focus:outline-none focus:border-accent-400 transition-colors"
+                      min="2025-09-09"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="preferred_time"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
+                      Preferred Time
+                    </label>
+                    <input
+                      type="time"
+                      id="preferred_time"
+                      name="preferred_time"
+                      value={formData.preferred_time}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white focus:outline-none focus:border-accent-400 transition-colors"
+                    />
                   </div>
                 </div>
 
                 <div>
                   <label
-                    htmlFor="message"
+                    htmlFor="business_goals"
                     className="block text-sm font-medium text-gray-300 mb-2"
                   >
-                    Message *
+                    Social Media Goals & Challenges *
                   </label>
                   <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
+                    id="business_goals"
+                    name="business_goals"
+                    value={formData.business_goals}
                     onChange={handleInputChange}
                     required
                     rows={6}
                     className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-400 transition-colors resize-vertical"
-                    placeholder="Tell us about your project and how we can help..."
+                    placeholder="Tell us about your social media goals (e.g., boost Instagram engagement, launch TikTok campaigns)..."
                   />
                 </div>
 
                 {/* Submit Status */}
-                {submitStatus && (
-                  <div
-                    className={`flex items-center space-x-2 p-4 rounded-lg ${
-                      submitStatus === "success"
-                        ? "bg-green-600/20 text-green-400 border border-green-600/30"
-                        : "bg-red-600/20 text-red-400 border border-red-600/30"
-                    }`}
-                  >
-                    {submitStatus === "success" ? (
-                      <>
-                        <CheckCircle size={20} />
-                        <span>
-                          Message sent successfully! We'll get back to you soon.
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <AlertCircle size={20} />
-                        <span>
-                          Failed to send message. Please try again or contact us
-                          directly.
-                        </span>
-                      </>
-                    )}
+                {submitStatus === "error" && (
+                  <div className="flex items-center space-x-2 p-4 rounded-lg bg-red-600/20 text-red-400 border border-red-600/30">
+                    <AlertCircle size={20} />
+                    <span>
+                      Failed to send message. Please try again or contact us
+                      directly at info@growzaic.com.
+                    </span>
                   </div>
                 )}
 
@@ -337,7 +441,7 @@ const Contact = () => {
                     </>
                   ) : (
                     <>
-                      Send Message
+                      Book Strategy Call
                       <Send className="ml-2" size={16} />
                     </>
                   )}
@@ -375,8 +479,8 @@ const Contact = () => {
               <div className="glass-effect-dark p-6 rounded-2xl">
                 <h3 className="text-2xl font-bold mb-4">Follow Us</h3>
                 <p className="text-gray-300 mb-6">
-                  Stay connected with us on social media for the latest updates,
-                  tips, and insights.
+                  Connect with us on social media for the latest Meta Ads tips,
+                  Instagram trends, and TikTok strategies.
                 </p>
                 <div className="flex space-x-4">
                   {socialLinks.map((social) => {
@@ -385,6 +489,8 @@ const Contact = () => {
                       <a
                         key={social.name}
                         href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="w-12 h-12 bg-neutral-800 hover:bg-accent-600 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110"
                         aria-label={social.name}
                       >
@@ -448,24 +554,25 @@ const Contact = () => {
           <div className="max-w-3xl mx-auto space-y-6">
             {[
               {
-                question: "How quickly can you start working on my project?",
+                question: "How quickly can you start my social media campaign?",
                 answer:
-                  "We typically begin new projects within 1-2 weeks of signing the agreement. For urgent projects, we can often accommodate faster start times.",
+                  "We typically launch campaigns within 1-2 weeks of signing the agreement. For urgent Meta or Instagram campaigns, we can often start sooner.",
               },
               {
                 question: "Do you work with businesses of all sizes?",
                 answer:
-                  "Yes! We work with startups, small businesses, and large enterprises. Our strategies are tailored to fit your specific needs and budget.",
+                  "Yes! We craft social media strategies for startups, small businesses, and enterprises, tailored to your goals and budget.",
               },
               {
-                question: "What's included in your digital marketing services?",
+                question:
+                  "What’s included in your social media marketing services?",
                 answer:
-                  "Our services include Meta Ads, LinkedIn marketing, SEO, content marketing, web development, lead generation, and comprehensive analytics and reporting.",
+                  "Our services include Meta & Instagram Ads, TikTok campaigns, LinkedIn marketing, social media SEO, content creation, and detailed analytics.",
               },
               {
-                question: "How do you measure success?",
+                question: "How do you measure social media success?",
                 answer:
-                  "We focus on metrics that matter to your business: leads generated, conversion rates, ROI, organic traffic growth, and ultimately, revenue impact.",
+                  "We track key metrics like engagement rates, follower growth, click-through rates, conversions, and ROI to ensure your campaigns deliver results.",
               },
             ].map((faq, index) => (
               <motion.div
@@ -483,6 +590,28 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {/* Thank You Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="glass-effect-dark p-6 rounded-2xl max-w-md w-full text-center">
+            <div className="flex justify-end">
+              <button
+                onClick={closeModal}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <XCircle size={24} />
+              </button>
+            </div>
+            <CheckCircle className="text-green-400 mx-auto mb-4" size={48} />
+            <h3 className="text-2xl font-bold text-white mb-2">Thank You!</h3>
+            <p className="text-gray-300 mb-6">
+              Your request for a social media strategy call has been sent. We’ll
+              contact you within 24 hours to discuss your goals.
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 };

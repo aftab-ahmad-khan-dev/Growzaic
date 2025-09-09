@@ -1,42 +1,58 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import emailjs from '@emailjs/browser';
-import { 
-  Calendar, 
-  Clock, 
-  User, 
-  Mail, 
-  Phone, 
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import emailjs from "@emailjs/browser";
+import {
+  Calendar,
+  Clock,
+  User,
   MessageSquare,
   CheckCircle,
   AlertCircle,
   Send,
   Star,
-  ArrowRight
-} from 'lucide-react';
-import SEO from '../components/SEO';
+  ArrowRight,
+  XCircle,
+} from "lucide-react";
+import SEO from "../components/SEO";
 
 const BookSlot = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    serviceType: '',
-    preferredDate: '',
-    preferredTime: '',
-    message: '',
-    budget: ''
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    serviceType: "",
+    preferredDate: "",
+    preferredTime: "",
+    message: "",
+    budget: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  const [bookingRef, bookingInView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const [showModal, setShowModal] = useState(false);
+  const [bookingRef, bookingInView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    const publicKey = "q1LjEqe1BYoap1aVY";
+    try {
+      emailjs.init(publicKey);
+      console.log(
+        "EmailJS initialized successfully with public key:",
+        publicKey
+      );
+    } catch (error) {
+      console.error("EmailJS initialization error:", error);
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -46,121 +62,154 @@ const BookSlot = () => {
     setSubmitStatus(null);
 
     try {
-      // EmailJS configuration
-      const serviceId = 'your_service_id'; // Replace with your EmailJS service ID
-      const templateId = 'your_booking_template_id'; // Replace with your EmailJS template ID
-      const publicKey = 'your_public_key'; // Replace with your EmailJS public key
+      const serviceId = "service_kbvfd32";
+      const templateId = "growzaic";
+
+      const currentDate = new Date().toLocaleDateString("en-US", {
+        timeZone: "Asia/Karachi",
+      }); // e.g., "9/9/2025"
+      const currentTime = new Date().toLocaleTimeString("en-US", {
+        timeZone: "Asia/Karachi",
+        hour12: true,
+      }); // e.g., "12:38 AM"
 
       const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
-        service_type: formData.serviceType,
-        preferred_date: formData.preferredDate,
-        preferred_time: formData.preferredTime,
-        budget: formData.budget,
-        message: formData.message,
-        to_name: 'Growzaic Team',
+        full_name: formData.name || "N/A",
+        email_address: formData.email || "N/A",
+        phone_number: formData.phone || "N/A",
+        company_name: formData.company || "N/A",
+        service_interest: formData.serviceType || "General Inquiry",
+        budget_range: formData.budget || "N/A",
+        preferred_date: formData.preferredDate || "N/A",
+        preferred_time: formData.preferredTime || "N/A",
+        business_goals: formData.message || "No specific goals provided",
+        current_date: currentDate,
+        current_time: currentTime,
       };
 
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
-      
-      setSubmitStatus('success');
+      console.log("=== Form Submission Debug ===");
+      console.log("Raw Form Data:", formData);
+      console.log("Processed Template Params:", templateParams);
+      console.log("EmailJS Service ID:", serviceId);
+      console.log("EmailJS Template ID:", templateId);
+
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams
+      );
+      console.log("EmailJS Response:", response.status, response.text);
+
+      setShowModal(true);
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        serviceType: '',
-        preferredDate: '',
-        preferredTime: '',
-        message: '',
-        budget: ''
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        serviceType: "",
+        preferredDate: "",
+        preferredTime: "",
+        message: "",
+        budget: "",
       });
     } catch (error) {
-      console.error('Error sending booking request:', error);
-      setSubmitStatus('error');
+      console.error("EmailJS Error Details:", {
+        message: error.message,
+        status: error.status,
+        text: error.text,
+      });
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+    setSubmitStatus(null);
+  };
+
   const serviceTypes = [
-    'Digital Marketing Strategy',
-    'Meta Ads Management',
-    'LinkedIn Lead Generation',
-    'SEO Optimization',
-    'Web Development',
-    'Lead Generation Campaign',
-    'Business Development Consulting',
-    'Complete Digital Transformation'
+    "Meta & Instagram Ads",
+    "TikTok Campaigns",
+    "LinkedIn Marketing",
+    "Social Media SEO",
+    "Social Media Strategy",
+    "Influencer Marketing",
+    "Content Creation",
+    "General Inquiry",
   ];
 
   const timeSlots = [
-    '9:00 AM - 10:00 AM',
-    '10:00 AM - 11:00 AM',
-    '11:00 AM - 12:00 PM',
-    '1:00 PM - 2:00 PM',
-    '2:00 PM - 3:00 PM',
-    '3:00 PM - 4:00 PM',
-    '4:00 PM - 5:00 PM',
-    '5:00 PM - 6:00 PM'
+    "9:00 AM - 10:00 AM",
+    "10:00 AM - 11:00 AM",
+    "11:00 AM - 12:00 PM",
+    "1:00 PM - 2:00 PM",
+    "2:00 PM - 3:00 PM",
+    "3:00 PM - 4:00 PM",
+    "4:00 PM - 5:00 PM",
+    "5:00 PM - 6:00 PM",
   ];
 
   const budgetRanges = [
-    'Under $1,000',
-    '$1,000 - $5,000',
-    '$5,000 - $10,000',
-    '$10,000 - $25,000',
-    '$25,000 - $50,000',
-    '$50,000+'
+    "Under $1,000",
+    "$1,000 - $5,000",
+    "$5,000 - $10,000",
+    "$10,000 - $25,000",
+    "$25,000 - $50,000",
+    "$50,000+",
   ];
 
   const benefits = [
     {
       icon: User,
-      title: 'Expert Consultation',
-      description: 'Get personalized advice from our experienced digital marketing specialists.'
+      title: "Social Media Expertise",
+      description:
+        "Get advice from specialists in Meta Ads, Instagram, and TikTok campaigns.",
     },
     {
       icon: CheckCircle,
-      title: 'Custom Strategy',
-      description: 'Receive a tailored strategy designed specifically for your business goals.'
+      title: "Custom Campaigns",
+      description:
+        "Receive a tailored social media strategy for your brand’s goals.",
     },
     {
       icon: Star,
-      title: 'No Obligation',
-      description: 'Free consultation with no strings attached - just valuable insights.'
+      title: "No Obligation",
+      description:
+        "Free consultation with no strings attached - just valuable insights.",
     },
     {
       icon: ArrowRight,
-      title: 'Quick Results',
-      description: 'Start seeing improvements in your digital presence within weeks.'
-    }
+      title: "Fast Engagement",
+      description:
+        "Boost your social media presence with strategies that drive results.",
+    },
   ];
 
   const testimonials = [
     {
-      name: 'Sarah Johnson',
-      role: 'CEO, TechStart Inc.',
-      content: 'The consultation was incredibly valuable. Arbab provided actionable insights that we implemented immediately.',
-      rating: 5
+      name: "Sarah Johnson",
+      role: "CEO, TechStart Inc.",
+      content:
+        "The consultation helped us launch a Meta Ads campaign that doubled our engagement in weeks!",
+      rating: 5,
     },
     {
-      name: 'Michael Chen',
-      role: 'Founder, E-commerce Plus',
-      content: 'Professional, knowledgeable, and results-driven. The best investment we made for our business.',
-      rating: 5
-    }
+      name: "Michael Chen",
+      role: "Founder, E-commerce Plus",
+      content:
+        "Arbab’s Instagram strategy insights were a game-changer for our brand’s growth.",
+      rating: 5,
+    },
   ];
 
   return (
     <>
-      <SEO 
-        title="Book Free Consultation - Digital Marketing Strategy Session | Growzaic"
-        description="Book your free digital marketing consultation with Growzaic. Get expert advice on Meta Ads, LinkedIn marketing, SEO, and growth strategies. No obligation, just results."
-        keywords="book consultation, free consultation, digital marketing consultation, Meta Ads consultation, LinkedIn marketing advice, SEO consultation, business growth strategy"
+      <SEO
+        title="Book Free Social Media Consultation | Growzaic"
+        description="Schedule a free social media marketing consultation with Growzaic. Get expert advice on Meta Ads, Instagram campaigns, TikTok strategies, and more. No obligation, just results."
+        keywords="book social media consultation, free consultation, Meta Ads consultation, Instagram campaigns, TikTok strategies, LinkedIn marketing, social media growth"
         url="https://growzaic.com/book-slot"
       />
 
@@ -174,11 +223,13 @@ const BookSlot = () => {
             className="text-center max-w-4xl mx-auto mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Book Your Free <span className="gradient-text">Consultation</span>
+              Book Your Free{" "}
+              <span className="gradient-text">Social Media Consultation</span>
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed">
-              Ready to transform your business? Schedule a free 30-minute strategy session 
-              with our digital marketing experts and discover how we can accelerate your growth.
+              Ready to amplify your social media presence? Schedule a free
+              30-minute strategy session with our experts to skyrocket your
+              Meta, Instagram, or TikTok growth.
             </p>
           </motion.div>
         </div>
@@ -203,7 +254,9 @@ const BookSlot = () => {
                     <Icon className="text-white" size={20} />
                   </div>
                   <h3 className="text-lg font-bold mb-2">{benefit.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{benefit.description}</p>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {benefit.description}
+                  </p>
                 </motion.div>
               );
             })}
@@ -218,22 +271,28 @@ const BookSlot = () => {
             {/* Form */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
-              animate={bookingInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+              animate={
+                bookingInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }
+              }
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Schedule Your <span className="gradient-text">Session</span>
+                Schedule Your{" "}
+                <span className="gradient-text">Strategy Session</span>
               </h2>
               <p className="text-gray-300 mb-8 leading-relaxed">
-                Fill out the form below to book your free consultation. We'll contact you 
-                within 24 hours to confirm your appointment.
+                Fill out the form to book your free social media consultation.
+                We’ll contact you within 24 hours to confirm your appointment.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Personal Information */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Full Name *
                     </label>
                     <input
@@ -248,7 +307,10 @@ const BookSlot = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Email Address *
                     </label>
                     <input
@@ -266,7 +328,10 @@ const BookSlot = () => {
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="phone"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Phone Number *
                     </label>
                     <input
@@ -281,7 +346,10 @@ const BookSlot = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="company"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Company Name
                     </label>
                     <input
@@ -299,7 +367,10 @@ const BookSlot = () => {
                 {/* Service & Budget */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="serviceType" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="serviceType"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Service Interest *
                     </label>
                     <select
@@ -312,12 +383,17 @@ const BookSlot = () => {
                     >
                       <option value="">Select a service</option>
                       {serviceTypes.map((service) => (
-                        <option key={service} value={service}>{service}</option>
+                        <option key={service} value={service}>
+                          {service}
+                        </option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="budget" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="budget"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Budget Range
                     </label>
                     <select
@@ -329,7 +405,9 @@ const BookSlot = () => {
                     >
                       <option value="">Select budget range</option>
                       {budgetRanges.map((range) => (
-                        <option key={range} value={range}>{range}</option>
+                        <option key={range} value={range}>
+                          {range}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -338,7 +416,10 @@ const BookSlot = () => {
                 {/* Scheduling */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="preferredDate" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="preferredDate"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Preferred Date *
                     </label>
                     <input
@@ -348,12 +429,15 @@ const BookSlot = () => {
                       value={formData.preferredDate}
                       onChange={handleInputChange}
                       required
-                      min={new Date().toISOString().split('T')[0]}
+                      min="2025-09-09"
                       className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white focus:outline-none focus:border-accent-400 transition-colors"
                     />
                   </div>
                   <div>
-                    <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-300 mb-2">
+                    <label
+                      htmlFor="preferredTime"
+                      className="block text-sm font-medium text-gray-300 mb-2"
+                    >
                       Preferred Time *
                     </label>
                     <select
@@ -366,7 +450,9 @@ const BookSlot = () => {
                     >
                       <option value="">Select time slot</option>
                       {timeSlots.map((slot) => (
-                        <option key={slot} value={slot}>{slot}</option>
+                        <option key={slot} value={slot}>
+                          {slot}
+                        </option>
                       ))}
                     </select>
                   </div>
@@ -374,8 +460,11 @@ const BookSlot = () => {
 
                 {/* Message */}
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                    Tell us about your goals
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-gray-300 mb-2"
+                  >
+                    Social Media Goals
                   </label>
                   <textarea
                     id="message"
@@ -384,28 +473,18 @@ const BookSlot = () => {
                     onChange={handleInputChange}
                     rows={4}
                     className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-accent-400 transition-colors resize-vertical"
-                    placeholder="What are your main business goals and challenges? This helps us prepare for our consultation."
+                    placeholder="What are your social media goals? (e.g., boost Instagram engagement, launch TikTok campaigns)"
                   />
                 </div>
 
                 {/* Submit Status */}
-                {submitStatus && (
-                  <div className={`flex items-center space-x-2 p-4 rounded-lg ${
-                    submitStatus === 'success' 
-                      ? 'bg-green-600/20 text-green-400 border border-green-600/30' 
-                      : 'bg-red-600/20 text-red-400 border border-red-600/30'
-                  }`}>
-                    {submitStatus === 'success' ? (
-                      <>
-                        <CheckCircle size={20} />
-                        <span>Booking request sent successfully! We'll contact you within 24 hours to confirm.</span>
-                      </>
-                    ) : (
-                      <>
-                        <AlertCircle size={20} />
-                        <span>Failed to send booking request. Please try again or contact us directly.</span>
-                      </>
-                    )}
+                {submitStatus === "error" && (
+                  <div className="flex items-center space-x-2 p-4 rounded-lg bg-red-600/20 text-red-400 border border-red-600/30">
+                    <AlertCircle size={20} />
+                    <span>
+                      Failed to send booking request. Please try again or
+                      contact us at info@growzaic.com.
+                    </span>
                   </div>
                 )}
 
@@ -421,7 +500,7 @@ const BookSlot = () => {
                     </>
                   ) : (
                     <>
-                      Book Free Consultation
+                      Book Free Strategy Call
                       <Send className="ml-2" size={16} />
                     </>
                   )}
@@ -432,7 +511,9 @@ const BookSlot = () => {
             {/* Information Panel */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
-              animate={bookingInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+              animate={
+                bookingInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }
+              }
               transition={{ duration: 0.6 }}
               className="space-y-8"
             >
@@ -445,8 +526,13 @@ const BookSlot = () => {
                       <span className="text-white text-sm font-bold">1</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1">Business Analysis</h4>
-                      <p className="text-gray-400 text-sm">We'll analyze your current digital presence and identify opportunities.</p>
+                      <h4 className="font-semibold mb-1">
+                        Social Media Analysis
+                      </h4>
+                      <p className="text-gray-400 text-sm">
+                        We’ll review your current Meta, Instagram, or TikTok
+                        presence to identify growth opportunities.
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -454,8 +540,13 @@ const BookSlot = () => {
                       <span className="text-white text-sm font-bold">2</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-1">Strategy Discussion</h4>
-                      <p className="text-gray-400 text-sm">We'll discuss tailored strategies for your specific goals and challenges.</p>
+                      <h4 className="font-semibold mb-1">
+                        Strategy Discussion
+                      </h4>
+                      <p className="text-gray-400 text-sm">
+                        We’ll discuss tailored social media strategies for your
+                        brand’s goals and audience.
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
@@ -464,7 +555,10 @@ const BookSlot = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">Action Plan</h4>
-                      <p className="text-gray-400 text-sm">You'll receive actionable recommendations you can implement immediately.</p>
+                      <p className="text-gray-400 text-sm">
+                        You’ll get actionable social media recommendations to
+                        implement immediately.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -472,7 +566,9 @@ const BookSlot = () => {
 
               {/* Consultation Details */}
               <div className="glass-effect-dark p-8 rounded-2xl">
-                <h3 className="text-2xl font-bold mb-6">Consultation Details</h3>
+                <h3 className="text-2xl font-bold mb-6">
+                  Consultation Details
+                </h3>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <Clock className="text-accent-400" size={20} />
@@ -485,21 +581,27 @@ const BookSlot = () => {
                     <Calendar className="text-accent-400" size={20} />
                     <div>
                       <p className="font-semibold">Availability</p>
-                      <p className="text-gray-400 text-sm">Monday - Friday, 9 AM - 6 PM EST</p>
+                      <p className="text-gray-400 text-sm">
+                        Monday - Friday, 9 AM - 6 PM PKT
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <MessageSquare className="text-accent-400" size={20} />
                     <div>
                       <p className="font-semibold">Format</p>
-                      <p className="text-gray-400 text-sm">Video call (Zoom/Google Meet)</p>
+                      <p className="text-gray-400 text-sm">
+                        Video call (Zoom/Google Meet)
+                      </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Star className="text-accent-400" size={20} />
                     <div>
                       <p className="font-semibold">Cost</p>
-                      <p className="text-gray-400 text-sm">Completely FREE - No strings attached</p>
+                      <p className="text-gray-400 text-sm">
+                        Completely FREE - No strings attached
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -510,16 +612,29 @@ const BookSlot = () => {
                 <h3 className="text-2xl font-bold mb-6">What Clients Say</h3>
                 <div className="space-y-6">
                   {testimonials.map((testimonial, index) => (
-                    <div key={index} className="border-l-4 border-accent-400 pl-4">
+                    <div
+                      key={index}
+                      className="border-l-4 border-accent-400 pl-4"
+                    >
                       <div className="flex items-center mb-2">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="text-yellow-400 fill-current" size={14} />
+                          <Star
+                            key={i}
+                            className="text-yellow-400 fill-current"
+                            size={14}
+                          />
                         ))}
                       </div>
-                      <p className="text-gray-300 text-sm mb-3 italic">"{testimonial.content}"</p>
+                      <p className="text-gray-300 text-sm mb-3 italic">
+                        "{testimonial.content}"
+                      </p>
                       <div>
-                        <p className="font-semibold text-sm">{testimonial.name}</p>
-                        <p className="text-gray-400 text-xs">{testimonial.role}</p>
+                        <p className="font-semibold text-sm">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-gray-400 text-xs">
+                          {testimonial.role}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -548,21 +663,25 @@ const BookSlot = () => {
           <div className="max-w-3xl mx-auto space-y-6">
             {[
               {
-                question: "Is the consultation really free?",
-                answer: "Yes, absolutely! Our initial consultation is completely free with no hidden costs or obligations. We believe in providing value upfront."
+                question: "Is the social media consultation really free?",
+                answer:
+                  "Yes, absolutely! Our initial consultation is completely free with no hidden costs or obligations. We focus on providing value upfront.",
               },
               {
-                question: "What if I can't make the scheduled time?",
-                answer: "No problem! Just contact us and we'll reschedule to a time that works better for you. We're flexible with our scheduling."
+                question: "What if I can’t make the scheduled time?",
+                answer:
+                  "No worries! Contact us at info@growzaic.com, and we’ll reschedule to a time that suits you. We’re flexible with scheduling.",
               },
               {
-                question: "Do I need to prepare anything for the consultation?",
-                answer: "Just come with your questions and goals! If you have existing marketing materials or analytics, feel free to share them, but it's not required."
+                question: "What’s included in the social media consultation?",
+                answer:
+                  "We’ll analyze your current social media presence, discuss Meta, Instagram, or TikTok strategies, and provide actionable recommendations.",
               },
               {
-                question: "Will you try to sell me services during the consultation?",
-                answer: "Our focus is on providing value and understanding your needs. We'll only discuss our services if they're a good fit for your goals."
-              }
+                question: "Will you pitch services during the consultation?",
+                answer:
+                  "Our goal is to understand your needs and provide value. We’ll only discuss our services if they align with your social media goals.",
+              },
             ].map((faq, index) => (
               <motion.div
                 key={index}
@@ -579,6 +698,28 @@ const BookSlot = () => {
           </div>
         </div>
       </section>
+
+      {/* Thank You Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="glass-effect-dark p-6 rounded-2xl max-w-md w-full text-center">
+            <div className="flex justify-end">
+              <button
+                onClick={closeModal}
+                className="text-gray-400 hover:text-white transition-colors"
+              >
+                <XCircle size={24} />
+              </button>
+            </div>
+            <CheckCircle className="text-green-400 mx-auto mb-4" size={48} />
+            <h3 className="text-2xl font-bold text-white mb-2">Thank You!</h3>
+            <p className="text-gray-300 mb-6">
+              Your social media strategy session request has been sent. We’ll
+              contact you within 24 hours to confirm.
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 };

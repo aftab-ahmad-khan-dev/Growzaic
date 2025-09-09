@@ -1,83 +1,108 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { 
-  User, 
-  Target, 
-  Eye, 
-  Award, 
-  Users, 
+import React from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import {
+  User,
+  Target,
+  Eye,
+  Award,
+  Users,
   TrendingUp,
   CheckCircle,
   Star,
   Lightbulb,
   Heart,
-  Shield
-} from 'lucide-react';
-import SEO from '../components/SEO';
+  Shield,
+} from "lucide-react";
+import SEO from "../components/SEO";
 
 const About = () => {
-  const [heroRef, heroInView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [founderRef, founderInView] = useInView({ threshold: 0.1, triggerOnce: true });
-  const [valuesRef, valuesInView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const [heroRef, heroInView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [founderRef, founderInView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
+  const [valuesRef, valuesInView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
   const achievements = [
     {
       icon: Award,
-      title: 'Industry Recognition',
-      description: 'Recognized as one of the top digital marketing agencies in the region'
+      title: "Industry Leader",
+      description:
+        "Recognized as a top social media marketing agency in the region",
     },
     {
       icon: Users,
-      title: '250+ Happy Clients',
-      description: 'Successfully served over 250 businesses across various industries'
+      title: "250+ Happy Clients",
+      description:
+        "Empowered over 250 brands with high-impact social media campaigns",
     },
     {
       icon: TrendingUp,
-      title: '500+ Projects',
-      description: 'Completed over 500 successful digital marketing and development projects'
+      title: "500+ Campaigns",
+      description:
+        "Launched over 500 successful social media marketing projects",
     },
     {
       icon: Star,
-      title: '98% Success Rate',
-      description: 'Maintained an impressive 98% client satisfaction and project success rate'
-    }
+      title: "98% Success Rate",
+      description:
+        "Achieved a 98% client satisfaction rate in social media growth",
+    },
   ];
 
   const coreValues = [
     {
       icon: Lightbulb,
-      title: 'Innovation',
-      description: 'We constantly explore new technologies and strategies to stay ahead of the curve and deliver cutting-edge solutions.'
+      title: "Innovation",
+      description:
+        "We pioneer creative social media strategies, leveraging the latest trends on Meta, Instagram, and TikTok.",
     },
     {
       icon: Heart,
-      title: 'Client-Centric',
-      description: 'Our clients\' success is our success. We prioritize understanding their needs and exceeding their expectations.'
+      title: "Client-Centric",
+      description:
+        "Your brand’s success is our priority. We craft tailored social media campaigns to exceed expectations.",
     },
     {
       icon: Shield,
-      title: 'Integrity',
-      description: 'We believe in transparent communication, honest practices, and building long-term relationships based on trust.'
+      title: "Integrity",
+      description:
+        "We build trust through transparent communication and ethical social media practices.",
     },
     {
       icon: Target,
-      title: 'Results-Driven',
-      description: 'Every strategy we implement is focused on delivering measurable results and tangible business growth.'
-    }
+      title: "Results-Driven",
+      description:
+        "Our strategies focus on measurable engagement, follower growth, and ROI across social platforms.",
+    },
   ];
 
   const clients = [
-    'TechStart Inc.', 'E-commerce Plus', 'HealthCorp', 'FinanceFlow', 'EduTech Solutions',
-    'GreenEnergy Co.', 'FoodieDelight', 'FashionForward', 'RealEstate Pro', 'AutoAdvance'
+    "TechStart Inc.",
+    "E-commerce Plus",
+    "HealthCorp",
+    "FinanceFlow",
+    "EduTech Solutions",
+    "GreenEnergy Co.",
+    "FoodieDelight",
+    "FashionForward",
+    "RealEstate Pro",
+    "AutoAdvance",
   ];
 
   return (
     <>
-      <SEO 
-        title="About Growzaic - Digital Marketing Excellence by Arbab Ahmad Khan"
-        description="Learn about Growzaic's journey, mission, and the visionary founder Arbab Ahmad Khan. Discover our commitment to transforming businesses through innovative digital marketing strategies."
-        keywords="about Growzaic, Arbab Ahmad Khan, digital marketing agency founder, company history, mission vision, values"
+      <SEO
+        title="About Growzaic - Social Media Marketing Experts | Arbab Ahmad Khan"
+        description="Discover Growzaic's mission to transform brands through expert social media marketing. Founded by Arbab Ahmad Khan, we specialize in Meta, Instagram, LinkedIn, and TikTok strategies."
+        keywords="about Growzaic, Arbab Ahmad Khan, social media marketing agency, Instagram campaigns, LinkedIn marketing, Meta advertising, company mission"
         url="https://growzaic.com/about"
       />
 
@@ -94,8 +119,9 @@ const About = () => {
               About <span className="gradient-text">Growzaic</span>
             </h1>
             <p className="text-xl text-gray-300 leading-relaxed">
-              We are a team of passionate digital marketing experts and innovative developers 
-              dedicated to transforming businesses through strategic growth solutions.
+              We’re a passionate team of social media marketing experts
+              dedicated to amplifying brands through strategic campaigns and
+              engaging content on Meta, Instagram, LinkedIn, and TikTok.
             </p>
           </motion.div>
 
@@ -108,18 +134,20 @@ const About = () => {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Story</h2>
               <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-                Founded in 2020 by <strong className="text-accent-400">Arbab Ahmad Khan</strong>, 
-                Growzaic emerged from a vision to bridge the gap between traditional business practices 
-                and the rapidly evolving digital landscape.
+                Founded in 2020 by{" "}
+                <strong className="text-accent-400">Arbab Ahmad Khan</strong>,
+                Growzaic was born to revolutionize how brands connect with
+                audiences through social media.
               </p>
               <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-                What started as a small consulting firm has grown into a full-service digital marketing 
-                agency that helps businesses of all sizes achieve remarkable growth through strategic 
-                digital transformation.
+                From a small team to a leading social media marketing agency,
+                we’ve empowered businesses worldwide with data-driven campaigns,
+                viral content, and platform expertise.
               </p>
               <p className="text-gray-300 text-lg leading-relaxed">
-                Today, we pride ourselves on being more than just service providers – we're growth partners 
-                committed to your long-term success.
+                We’re more than marketers – we’re your partners in building
+                thriving online communities and driving measurable social media
+                success.
               </p>
             </div>
             <div className="relative">
@@ -127,8 +155,12 @@ const About = () => {
                 <div className="w-full h-full bg-neutral-800 rounded-xl flex items-center justify-center">
                   <div className="text-center">
                     <Users className="w-20 h-20 text-accent-400 mx-auto mb-4" />
-                    <h3 className="text-2xl font-bold mb-2">Team Excellence</h3>
-                    <p className="text-gray-400">Passionate experts working together</p>
+                    <h3 className="text-2xl font-bold mb-2">
+                      Social Media Experts
+                    </h3>
+                    <p className="text-gray-400">
+                      Crafting impactful online communities
+                    </p>
                   </div>
                 </div>
               </div>
@@ -142,7 +174,9 @@ const About = () => {
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={founderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={
+              founderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+            }
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
@@ -154,7 +188,9 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
-              animate={founderInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+              animate={
+                founderInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }
+              }
               transition={{ duration: 0.6 }}
               className="relative"
             >
@@ -162,7 +198,9 @@ const About = () => {
                 <div className="w-full h-full bg-neutral-800 rounded-xl flex items-center justify-center">
                   <div className="text-center">
                     <User className="w-24 h-24 text-accent-400 mx-auto mb-4" />
-                    <h3 className="text-3xl font-bold gradient-text">Arbab Ahmad Khan</h3>
+                    <h3 className="text-3xl font-bold gradient-text">
+                      Arbab Ahmad Khan
+                    </h3>
                     <p className="text-gray-400 text-lg">Founder & CEO</p>
                   </div>
                 </div>
@@ -171,29 +209,36 @@ const About = () => {
 
             <motion.div
               initial={{ opacity: 0, x: 30 }}
-              animate={founderInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
+              animate={
+                founderInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }
+              }
               transition={{ duration: 0.6 }}
             >
               <h3 className="text-3xl font-bold mb-6">Arbab Ahmad Khan</h3>
               <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-                With over 5 years of experience in digital marketing and business development, 
-                Arbab Ahmad Khan founded Growzaic with a mission to democratize access to 
-                world-class digital marketing strategies.
+                With over 5 years of expertise in social media marketing, Arbab
+                Ahmad Khan founded Growzaic to empower brands with cutting-edge
+                social media strategies.
               </p>
               <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-                His expertise spans across Meta Ads, LinkedIn advertising, SEO optimization, 
-                and full-stack web development. Arbab's data-driven approach and innovative 
-                thinking have helped hundreds of businesses achieve exponential growth.
+                His mastery of Meta Ads, LinkedIn B2B campaigns, Instagram
+                growth, and TikTok trends has driven exponential engagement for
+                hundreds of businesses. Arbab also brings full-stack web
+                development skills to create seamless digital experiences.
               </p>
-              
+
               <div className="space-y-4 mb-8">
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="text-accent-400" size={20} />
-                  <span className="text-gray-300">Certified Meta & LinkedIn Ads Specialist</span>
+                  <span className="text-gray-300">
+                    Certified Meta & LinkedIn Ads Specialist
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="text-accent-400" size={20} />
-                  <span className="text-gray-300">Google Analytics & SEO Expert</span>
+                  <span className="text-gray-300">
+                    Instagram & TikTok Growth Expert
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="text-accent-400" size={20} />
@@ -201,16 +246,21 @@ const About = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <CheckCircle className="text-accent-400" size={20} />
-                  <span className="text-gray-300">Business Growth Strategist</span>
+                  <span className="text-gray-300">
+                    Social Media Growth Strategist
+                  </span>
                 </div>
               </div>
 
               <blockquote className="border-l-4 border-accent-400 pl-6 py-4 bg-neutral-800 rounded-r-lg">
                 <p className="text-gray-300 italic mb-4">
-                  "My vision is to empower every business, regardless of size, with the digital tools 
-                  and strategies they need to compete and thrive in today's marketplace."
+                  "My mission is to empower every brand with the social media
+                  tools and strategies they need to build thriving online
+                  communities and achieve massive growth."
                 </p>
-                <footer className="text-accent-400 font-semibold">- Arbab Ahmad Khan</footer>
+                <footer className="text-accent-400 font-semibold">
+                  - Arbab Ahmad Khan
+                </footer>
               </blockquote>
             </motion.div>
           </div>
@@ -228,10 +278,11 @@ const About = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Our <span className="gradient-text">Achievements</span>
+              Our <span className="gradient-text">Social Media Milestones</span>
             </h2>
             <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              These milestones represent our commitment to excellence and our clients' success.
+              These achievements showcase our expertise in driving social media
+              success.
             </p>
           </motion.div>
 
@@ -250,8 +301,12 @@ const About = () => {
                   <div className="w-16 h-16 bg-gradient-to-r from-accent-500 to-accent-700 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Icon className="text-white" size={24} />
                   </div>
-                  <h3 className="text-xl font-bold mb-3">{achievement.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{achievement.description}</p>
+                  <h3 className="text-xl font-bold mb-3">
+                    {achievement.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    {achievement.description}
+                  </p>
                 </motion.div>
               );
             })}
@@ -275,13 +330,14 @@ const About = () => {
               </div>
               <h3 className="text-3xl font-bold mb-6">Our Mission</h3>
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                To empower businesses worldwide by providing innovative digital marketing solutions, 
-                cutting-edge web development services, and strategic growth consulting that drives 
-                measurable results and sustainable success.
+                To empower brands with innovative social media marketing
+                solutions, delivering engaging campaigns on Meta, Instagram,
+                LinkedIn, and TikTok that drive measurable growth.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                We are committed to democratizing access to world-class digital marketing expertise, 
-                ensuring that businesses of all sizes can compete effectively in the digital marketplace.
+                We’re committed to making world-class social media expertise
+                accessible, helping businesses of all sizes thrive in the
+                digital landscape.
               </p>
             </motion.div>
 
@@ -297,12 +353,14 @@ const About = () => {
               </div>
               <h3 className="text-3xl font-bold mb-6">Our Vision</h3>
               <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                To become the global leader in digital transformation, recognized for our innovative 
-                approaches, exceptional results, and unwavering commitment to client success.
+                To lead the world in social media transformation, recognized for
+                our creative campaigns, platform expertise, and unmatched client
+                results.
               </p>
               <p className="text-gray-300 leading-relaxed">
-                We envision a future where every business, regardless of size or industry, has the 
-                tools and strategies needed to thrive in an increasingly digital world.
+                We envision a future where every brand harnesses the power of
+                social media to build vibrant communities and achieve
+                exponential growth.
               </p>
             </motion.div>
           </div>
@@ -314,7 +372,9 @@ const About = () => {
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={valuesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            animate={
+              valuesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+            }
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
@@ -322,7 +382,8 @@ const About = () => {
               Our Core <span className="gradient-text">Values</span>
             </h2>
             <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              These values guide every decision we make and every strategy we implement.
+              These values shape our approach to delivering exceptional social
+              media marketing.
             </p>
           </motion.div>
 
@@ -333,7 +394,9 @@ const About = () => {
                 <motion.div
                   key={value.title}
                   initial={{ opacity: 0, y: 30 }}
-                  animate={valuesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                  animate={
+                    valuesInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                  }
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   className="glass-effect-dark p-8 rounded-2xl card-hover"
                 >
@@ -341,7 +404,9 @@ const About = () => {
                     <Icon className="text-white" size={24} />
                   </div>
                   <h3 className="text-2xl font-bold mb-4">{value.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{value.description}</p>
+                  <p className="text-gray-400 leading-relaxed">
+                    {value.description}
+                  </p>
                 </motion.div>
               );
             })}
@@ -360,10 +425,11 @@ const About = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Trusted by <span className="gradient-text">Leading Brands</span>
+              Trusted by <span className="gradient-text">Top Brands</span>
             </h2>
             <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              We've had the privilege of working with amazing companies across various industries.
+              We’ve transformed the social media presence of leading brands
+              across industries.
             </p>
           </motion.div>
 
