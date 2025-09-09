@@ -15,7 +15,7 @@ import {
   Shield,
 } from "lucide-react";
 import SEO from "../components/SEO";
-
+import founder from "../assets/founder.jpg";
 const About = () => {
   const [heroRef, heroInView] = useInView({
     threshold: 0.1,
@@ -151,10 +151,14 @@ const About = () => {
               </p>
             </div>
             <div className="relative">
-              <div className="aspect-square bg-gradient-to-r from-accent-500/20 to-accent-700/20 rounded-2xl p-8 backdrop-blur-sm">
-                <div className="w-full h-full bg-neutral-800 rounded-xl flex items-center justify-center">
+              <div className="aspect-square  p-8 backdrop-blur-sm">
+                <div className="w-full h-full  rounded-xl flex items-center justify-center">
                   <div className="text-center">
-                    <Users className="w-20 h-20 text-accent-400 mx-auto mb-4" />
+                    <img
+                      src="https://img.freepik.com/premium-photo/neon-light-question-marks-concept-dark-concrete-realistic-abstract-background-3d-rendering_626958-370.jpg"
+                      alt=""
+                      className="rounded-xl w-[100%] mx-auto mb-4"
+                    />
                     <h3 className="text-2xl font-bold mb-2">
                       Social Media Experts
                     </h3>
@@ -195,10 +199,10 @@ const About = () => {
               className="relative"
             >
               <div className="aspect-square bg-gradient-to-r from-accent-500/20 to-accent-700/20 rounded-2xl p-8 backdrop-blur-sm">
-                <div className="w-full h-full bg-neutral-800 rounded-xl flex items-center justify-center">
+                <div className="w-full h-full  rounded-xl flex items-center justify-center">
                   <div className="text-center">
-                    <User className="w-24 h-24 text-accent-400 mx-auto mb-4" />
-                    <h3 className="text-3xl font-bold gradient-text">
+                    <img src={founder} alt="" className="rounded-xl" />
+                    <h3 className="text-3xl font-bold gradient-text pb-4">
                       Arbab Ahmad Khan
                     </h3>
                     <p className="text-gray-400 text-lg">Founder & CEO</p>

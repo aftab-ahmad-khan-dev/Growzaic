@@ -314,10 +314,14 @@ const Home = () => {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="aspect-square bg-gradient-to-r from-accent-500/20 to-accent-700/20 rounded-2xl p-8 backdrop-blur-sm">
-                <div className="w-full h-full bg-neutral-800 rounded-xl flex items-center justify-center">
+              <div className=" bg-gradient-to-r from-accent-500/20 to-accent-700/20 rounded-2xl p-2 backdrop-blur-sm">
+                <div className="flex items-center justify-center">
                   <div className="text-center">
-                    <Award className="w-20 h-20 text-accent-400 mx-auto mb-4" />
+                    <img
+                      src="https://media.istockphoto.com/id/1815875174/photo/top-view-of-business-people-digital-meetings-virtual-world-meetings-in-metaverse.jpg?s=612x612&w=0&k=20&c=q4bn2a_LBeMbAPlpq5mOhuD4rS4HJWujrIA-jwkNan4="
+                      alt=""
+                      className="rounded-xl object-cover mb-4 mx-auto border-1 border-accent-500 shadow-lg"
+                    />
                     <h3 className="text-2xl font-bold mb-2">
                       Leaders in Social Media Excellence
                     </h3>

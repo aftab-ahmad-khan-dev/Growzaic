@@ -144,16 +144,19 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com/growzaic", name: "Facebook" },
-    { icon: Twitter, href: "https://twitter.com/growzaic", name: "Twitter" },
+    {
+      icon: Facebook,
+      href: "https://web.facebook.com/profile.php?id=61573263944804",
+      name: "Facebook",
+    },
     {
       icon: Linkedin,
-      href: "https://linkedin.com/company/growzaic",
+      href: "https://www.linkedin.com/company/106624605",
       name: "LinkedIn",
     },
     {
       icon: Instagram,
-      href: "https://instagram.com/growzaic",
+      href: "https://www.instagram.com/growzaic_marketing/?hl=en",
       name: "Instagram",
     },
   ];
